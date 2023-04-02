@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+
+    if: ${{ github.repository_owner == 'hasundue' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.32.3 # @denopendabot denoland/deno
+
+      - name: Semantic Release
+        run: >
+          deno run -q --allow-env --allow-net --allow-read --allow-write
+          https://deno.land/x/denomantic_release@0.8.1/cli.ts
+          ${{ github.repository }}
+          --token ${{ secrets.GITHUB_TOKEN }}
