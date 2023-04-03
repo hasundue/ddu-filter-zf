@@ -4,28 +4,42 @@ on:
   pull_request:
     branches: 
       - main
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
   workflow_call:
   workflow_dispatch:
 
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        zig_ver: [ master, 0.10.1 ] # @denopendabot ziglang/zig
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: ${{ matrix.zig_ver }}
 
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.32.3 # @denopendabot denoland/deno
 
-      - name: Format
-        run: deno fmt --check
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Lint
-        run: deno lint
+      - name: Cache
+        run: deno cache build.ts libzf.ts
+
+      - name: Build
+        run: deno task build
 
       - name: Test
         run: deno task test --coverage=./coverage

@@ -7,12 +7,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  check:
+    name: Check
+    uses: ./.github/workflows/check.yml
+
   test:
     name: Test
+    needs: check
     uses: ./.github/workflows/test.yml
+
+  doc:
+    name: Docgen
+    needs: test
+    uses: ./.github/workflows/docgen.yml
 
   release:
     name: Release
-    needs: test
+    needs: doc
     uses: ./.github/workflows/release.yml
     secrets: inherit

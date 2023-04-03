@@ -1,0 +1,26 @@
+name: Check
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.32.3 # @denopendabot denoland/deno
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Format
+        run: deno fmt --check
+
+      - name: Lint
+        run: deno lint
+
