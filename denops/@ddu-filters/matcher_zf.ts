@@ -1,4 +1,4 @@
-import { basename } from "https://deno.land/std@0.185.0/path/mod.ts";
+import { basename } from "https://deno.land/std@0.186.0/path/mod.ts";
 import {
   BaseFilter,
   BaseFilterParams,
