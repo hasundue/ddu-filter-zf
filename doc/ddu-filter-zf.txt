@@ -1,4 +1,4 @@
-*ddu-filter-zf.txt*           For Vim/Neovim          Last change: 2023 May 10
+*ddu-filter-zf.txt*           For Vim/Neovim          Last change: 2023 May 30
 
 INTRODUCTION                                      *ddu-filter-zf-introduction*
 
