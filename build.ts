@@ -1,5 +1,5 @@
 import { existsSync } from "https://deno.land/std@0.190.0/fs/mod.ts";
-import $ from "https://deno.land/x/dax@0.31.1/mod.ts";
+import $ from "https://deno.land/x/dax@0.32.0/mod.ts";
 
 // ensure we're in the root of the project
 $.cd(import.meta);
