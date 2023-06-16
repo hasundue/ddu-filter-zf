@@ -1,9 +1,9 @@
-import { basename } from "https://deno.land/std@0.191.0/path/mod.ts";
+import { basename } from "https://deno.land/std@0.192.0/path/mod.ts";
 import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
-} from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
+} from "https://deno.land/x/ddu_vim@v3.1.0/types.ts";
 import { rankToken } from "../../libzf.ts";
 
 interface Params extends BaseFilterParams {
