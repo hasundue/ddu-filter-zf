@@ -3,7 +3,7 @@ import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
-} from "https://deno.land/x/ddu_vim@v3.1.0/types.ts";
+} from "https://deno.land/x/ddu_vim@v3.2.1/types.ts";
 import { rankToken } from "../../libzf.ts";
 
 interface Params extends BaseFilterParams {
