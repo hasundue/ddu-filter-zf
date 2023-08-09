@@ -2,7 +2,7 @@ import {
   dirname,
   fromFileUrl,
   join,
-} from "https://deno.land/std@0.192.0/path/mod.ts";
+} from "https://deno.land/std@0.197.0/path/mod.ts";
 
 const dir = dirname(fromFileUrl(import.meta.url));
 
