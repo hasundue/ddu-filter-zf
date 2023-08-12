@@ -1,4 +1,4 @@
-import { existsSync } from "https://deno.land/std@0.197.0/fs/mod.ts";
+import { existsSync } from "https://deno.land/std@0.198.0/fs/mod.ts";
 import $ from "https://deno.land/x/dax@0.34.0/mod.ts";
 
 // ensure we're in the root of the project
