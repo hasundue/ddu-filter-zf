@@ -6,10 +6,11 @@ import {
 } from "https://deno.land/x/ddu_vim@v3.5.0/types.ts";
 import { rankToken } from "../../libzf.ts";
 
+const separator = Deno.build.os === "windows" ? "\\" : "/";
+
 interface Params extends BaseFilterParams {
-  isFilePath: boolean;
+  plainText: boolean;
   caseSensitive: boolean;
-  strictPath: boolean;
 }
 
 export class Filter extends BaseFilter<Params> {
@@ -21,18 +22,20 @@ export class Filter extends BaseFilter<Params> {
     if (!args.input) {
       return args.items;
     }
-    const tokens = args.input.split(" ").filter((token) => token !== "");
+    const tokens = args.input.trimEnd().split(" ");
+    const strictPath = tokens.length == 1 && args.input.includes(separator);
     return args.items
-      .map((item) => rankItem(item, tokens, args.filterParams))
+      .map((item) =>
+        rankItem(item, tokens, { ...args.filterParams, strictPath })
+      )
       .filter((item) => item.rank > 0)
       .sort((a, b) => a.rank - b.rank)
       .map((item) => item.item);
   }
   params() {
     return {
-      isFilePath: true,
+      plainText: false,
       caseSensitive: false,
-      strictPath: false,
     };
   }
 }
@@ -45,15 +48,14 @@ type RankItemResult = {
 function rankItem(
   item: DduItem,
   tokens: string[],
-  params: Params,
+  params: Params & { strictPath: boolean },
 ): RankItemResult {
   let total = 0;
   for (const token of tokens) {
-    const filename = params.isFilePath ? basename(item.word) : null;
     const rank = rankToken(
       item.word,
-      filename,
-      token,
+      params.plainText ? null : basename(item.word),
+      params.caseSensitive ? token : token.toLowerCase(),
       params.caseSensitive,
       params.strictPath,
     );
