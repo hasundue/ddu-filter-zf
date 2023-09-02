@@ -7,6 +7,7 @@ import {
 import { rankToken } from "../../libzf.ts";
 
 interface Params extends BaseFilterParams {
+  isFilePath: boolean;
   caseSensitive: boolean;
   strictPath: boolean;
 }
@@ -29,6 +30,7 @@ export class Filter extends BaseFilter<Params> {
   }
   params() {
     return {
+      isFilePath: true,
       caseSensitive: false,
       strictPath: false,
     };
@@ -47,7 +49,7 @@ function rankItem(
 ): RankItemResult {
   let total = 0;
   for (const token of tokens) {
-    const filename = basename(item.word);
+    const filename = params.isFilePath ? basename(item.word) : null;
     const rank = rankToken(
       item.word,
       filename,

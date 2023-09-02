@@ -15,10 +15,10 @@
 
 ## Introduction
 
-`ddu-filter-zf` is a Vim/Neovim plugin to use
-[zf](https://github.com/natecraddock/zf) as a filter for
-[ddu.vim](https://github.com/Shougo/ddu.vim). `zf` is a fuzzy-finder written in
-Zig, which prioritizes matches on filepaths.
+`ddu-filter-zf` is a fuzzy-matcher for
+[ddu.vim](https://github.com/Shougo/ddu.vim), featuring
+[zf](https://github.com/natecraddock/zf), a fuzzy-finder designed for
+fuzzy-matching file paths.
 
 ## Requirements
 
@@ -27,7 +27,7 @@ Zig, which prioritizes matches on filepaths.
 - [ddu.vim](https://github.com/Shougo/ddu.vim)
 - [Zig](https://ziglang.org)
 
-Latest stable versions are required unless explicitly mentioned.
+Latest stable versions are only supported unless explicitly mentioned.
 
 ## Installation
 
@@ -53,6 +53,7 @@ call ddu#custom#patch_global(#{
   \   },
   \   filterParams: #{
   \     matcher_zf: #{
+  \       isFilePath: v:true,
   \       caseSensitive: v:false,
   \       strictPath: v:false,
   \     },
@@ -60,5 +61,31 @@ call ddu#custom#patch_global(#{
   \ })
 ```
 
-For the parameters `caseSensitive` and `strictPath`, please refer to the
-documentation of [zf](https://github.com/natecraddock/zf).
+## Parameters
+
+### `isFilePath`
+
+- Type: `boolean`
+- Default: `true`
+
+If `true`, the filter will treat the input as a file path and enable zf-specific
+features.
+
+### `caseSensitive`
+
+- Type: `boolean`
+- Default: `false`
+
+If `true`, the filter will perform case-sensitive matching.
+
+### `strictPath`
+
+- Type: `boolean`
+- Default: `false`
+
+If `true`, the filter will perform strict path matching. This means that the
+filter will not match a path if the input does not match the path exactly.
+
+Please refer to the
+[original documentation](https://github.com/natecraddock/zf#strict-path-matching)
+for details.

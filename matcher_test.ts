@@ -18,7 +18,11 @@ describe("matcher_zf", () => {
     it("should match for a single word", () => {
       assertObjectMatch(
         matcher.filter({
-          filterParams: { caseSensitive: false, strictPath: false },
+          filterParams: {
+            isFilePath: true,
+            caseSensitive: false,
+            strictPath: false,
+          },
           input: "zf",
           items,
         }),
@@ -29,7 +33,11 @@ describe("matcher_zf", () => {
     it("should ignore a trailing whitespace", () => {
       assertObjectMatch(
         matcher.filter({
-          filterParams: { caseSensitive: false, strictPath: false },
+          filterParams: {
+            isFilePath: true,
+            caseSensitive: false,
+            strictPath: false,
+          },
           input: "zf ",
           items,
         }),
@@ -40,7 +48,11 @@ describe("matcher_zf", () => {
     it("should match for multiple words", () => {
       assertObjectMatch(
         matcher.filter({
-          filterParams: { caseSensitive: false, strictPath: false },
+          filterParams: {
+            isFilePath: true,
+            caseSensitive: false,
+            strictPath: false,
+          },
           input: "zf so",
           items,
         }),
@@ -53,6 +65,7 @@ describe("matcher_zf", () => {
   describe("params", () => {
     it("should return default params", () => {
       assertEquals(matcher.params(), {
+        isFilePath: true,
         caseSensitive: false,
         strictPath: false,
       });
