@@ -27,12 +27,18 @@ jobs:
           denopendabot: disabled
           options: --dry-run
 
-      - name: Build assets
+      - name: Setup Zig
         if: ${{ steps.check.outputs.version && !steps.check.output.needs_update }}
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.11.0 # @denopendabot ziglang/zig
+
+      - name: Build assets
+        id: build
         run: deno task build x86_64-linux x86_64-windows x86_64-macos
 
       - name: Release
-        if: ${{ steps.check.outputs.version && !steps.check.output.needs_update }}
+        if: ${{ steps.build.outcome == 'success' }}
         uses: hasundue/denomantic-release@0.9.0
         with:
           denopendabot: app
