@@ -45,4 +45,3 @@ jobs:
         with:
           denopendabot: app
           assets: zf/libzf.so zf/zf.dll zf/libzf.dylib
-          draft: true
