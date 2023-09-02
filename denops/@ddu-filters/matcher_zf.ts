@@ -11,10 +11,6 @@ interface Params extends BaseFilterParams {
   strictPath: boolean;
 }
 
-interface DduItemWithRank extends DduItem {
-  rank: number;
-}
-
 export class Filter extends BaseFilter<Params> {
   filter(args: {
     filterParams: Params;
@@ -28,7 +24,8 @@ export class Filter extends BaseFilter<Params> {
     return args.items
       .map((item) => rankItem(item, tokens, args.filterParams))
       .filter((item) => item.rank > 0)
-      .sort((a, b) => a.rank - b.rank);
+      .sort((a, b) => a.rank - b.rank)
+      .map((item) => item.item);
   }
   params() {
     return {
@@ -38,11 +35,16 @@ export class Filter extends BaseFilter<Params> {
   }
 }
 
+type RankItemResult = {
+  item: DduItem;
+  rank: number;
+};
+
 function rankItem(
   item: DduItem,
   tokens: string[],
   params: Params,
-): DduItemWithRank {
+): RankItemResult {
   let total = 0;
   for (const token of tokens) {
     const filename = basename(item.word);
@@ -54,9 +56,9 @@ function rankItem(
       params.strictPath,
     );
     if (rank < 0) {
-      return { ...item, rank };
+      return { item, rank };
     }
     total += rank;
   }
-  return { ...item, rank: total };
+  return { item, rank: total };
 }
