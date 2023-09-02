@@ -15,7 +15,7 @@
 
 ## Introduction
 
-`ddu-filter-zf` is a Vim/NeoVim plugin to use
+`ddu-filter-zf` is a Vim/Neovim plugin to use
 [zf](https://github.com/natecraddock/zf) as a filter for
 [ddu.vim](https://github.com/Shougo/ddu.vim). `zf` is a fuzzy-finder written in
 Zig, which prioritizes matches on filepaths.
