@@ -42,5 +42,8 @@ jobs:
         uses: hasundue/denomantic-release@0.9.0
         with:
           denopendabot: app
-          assets: zf/libzf.so zf/zf.dll zf/libzf.dylib
+          assets: |
+            zf/libzf.so
+            zf/zf.dll
+            zf/libzf.dylib
           options: --draft
