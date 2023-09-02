@@ -22,7 +22,7 @@ jobs:
 
       - name: Check if release is needed
         id: check
-        uses: hasundue/denomantic-release@0.9.0
+        uses: hasundue/denomantic-release@0.10.0
         with:
           denopendabot: disabled
           options: --dry-run
@@ -39,11 +39,8 @@ jobs:
 
       - name: Release
         if: ${{ steps.build.outcome == 'success' }}
-        uses: hasundue/denomantic-release@0.9.0
+        uses: hasundue/denomantic-release@0.10.0
         with:
           denopendabot: app
-          assets: |
-            zf/libzf.so
-            zf/zf.dll
-            zf/libzf.dylib
-          options: --draft
+          assets: zf/libzf.so zf/zf.dll zf/libzf.dylib
+          draft: true
