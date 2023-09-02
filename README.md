@@ -49,8 +49,8 @@ call dein#add('hasundue/ddu-filter-zf', #{ build: 'deno task download' })
 ## Configuration
 
 `ddu-filter-zf` is provided as a matcher for ddu.vim, technically, but it works
-as a sorter at the same time. Here is an example configuration where
-`ddu-filter-zf` is used as the filter for all the sources:
+as a sorter at the same time by its nature. Here is an example configuration
+where `ddu-filter-zf` is used as the filter for all the sources:
 
 ```viml
 call ddu#custom#patch_global(#{
@@ -61,9 +61,8 @@ call ddu#custom#patch_global(#{
   \   },
   \   filterParams: #{
   \     matcher_zf: #{
-  \       isFilePath: v:true,
+  \       plainText: v:false,
   \       caseSensitive: v:false,
-  \       strictPath: v:false,
   \     },
   \   },
   \ })
@@ -71,13 +70,13 @@ call ddu#custom#patch_global(#{
 
 ## Parameters
 
-### `isFilePath`
+### `plainText`
 
 - Type: `boolean`
-- Default: `true`
+- Default: `false`
 
-If `true`, the filter will treat the input as a file path and enable zf-specific
-features.
+If `true`, the filter will treat items as plain text, not file paths. This
+disables the path-specific features of `zf`.
 
 ### `caseSensitive`
 
@@ -85,12 +84,3 @@ features.
 - Default: `false`
 
 If `true`, the filter will perform case-sensitive matching.
-
-### `strictPath`
-
-- Type: `boolean`
-- Default: `false`
-
-If `true`, the filter will perform strict path matching. Please refer to the
-[original documentation](https://github.com/natecraddock/zf#strict-path-matching)
-for details.
