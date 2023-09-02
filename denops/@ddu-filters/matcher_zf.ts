@@ -21,16 +21,15 @@ export class Filter extends BaseFilter<Params> {
     input: string;
     items: DduItem[];
   }): DduItem[] {
-    if (!args.input) return args.items;
-
+    if (!args.input) {
+      return args.items;
+    }
     const tokens = args.input.split(" ");
-
     return args.items
       .map((item) => rankItem(item, tokens, args.filterParams))
       .filter((item) => item.rank > 0)
       .sort((a, b) => a.rank - b.rank);
   }
-
   params() {
     return {
       caseSensitive: false,
