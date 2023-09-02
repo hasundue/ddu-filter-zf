@@ -16,12 +16,11 @@ interface DduItemWithRank extends DduItem {
 }
 
 export class Filter extends BaseFilter<Params> {
-  // deno-lint-ignore require-await
-  async filter(args: {
+  filter(args: {
     filterParams: Params;
     input: string;
     items: DduItem[];
-  }): Promise<DduItem[]> {
+  }): DduItem[] {
     if (!args.input) return args.items;
 
     const tokens = args.input.split(" ");
