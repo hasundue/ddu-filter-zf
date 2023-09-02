@@ -41,7 +41,7 @@ jobs:
 
       - name: Release
         if: ${{ steps.build.outcome == 'success' }}
-        uses: hasundue/denomantic-release@0.10.0
+        uses: hasundue/denomantic-release@0.10.1
         with:
           denopendabot: app
           assets: zf/libzf.so zf/zf.dll zf/libzf.dylib
