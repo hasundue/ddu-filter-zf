@@ -28,6 +28,7 @@ jobs:
           options: --dry-run
 
       - name: Setup Zig
+        id: setup-zig
         if: ${{ steps.check.outputs.version && !steps.check.output.needs_update }}
         uses: goto-bus-stop/setup-zig@v2
         with:
@@ -35,6 +36,7 @@ jobs:
 
       - name: Build assets
         id: build
+        if: ${{ steps.setup-zig.outcome == 'success' }}
         run: deno task build x86_64-linux x86_64-windows x86_64-macos
 
       - name: Release
