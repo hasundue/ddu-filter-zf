@@ -7,7 +7,7 @@
 ![CI](https://github.com/hasundue/ddu-filter-zf/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/hasundue/ddu-filter-zf/branch/main/graph/badge.svg?token=7BS432RAXB)](https://codecov.io/gh/hasundue/ddu-filter-zf)
 ![denoland/deno](https://img.shields.io/badge/Deno-v1.36.1-informational?logo=deno) <!-- @denopendabot denoland/deno -->
-![ziglang/zig](https://img.shields.io/badge/Zig-master-informational?logo=zig)
+![ziglang/zig](https://img.shields.io/badge/Zig-0.11.0-informational?logo=zig) <!-- @denopendabot ziglang/zig -->
 
 <!-- deno-fmt-ignore-end -->
 
@@ -25,9 +25,9 @@ Zig, which prioritizes matches on filepaths.
 - [Deno](https://deno.land/)
 - [denops.vim](https://github.com/vim-denops/denops.vim)
 - [ddu.vim](https://github.com/Shougo/ddu.vim)
-- [Zig](https://ziglang.org) (master or latest)
+- [Zig](https://ziglang.org)
 
-Latest versions are required unless explicitly mentioned.
+Latest stable versions are required unless explicitly mentioned.
 
 ## Installation
 
