@@ -1,4 +1,4 @@
-*ddu-filter-zf.txt*          For Vim/Neovim          Last change: 2023 June 21
+*ddu-filter-zf.txt*        For Vim/Neovim       Last change: 2023 September 02
 
 INTRODUCTION                                      *ddu-filter-zf-introduction*
 
@@ -10,13 +10,12 @@ which prioritizes matches on filepaths.
 
 REQUIREMENTS                                      *ddu-filter-zf-requirements*
 
-
 - Deno <https://deno.land/>
 - denops.vim <https://github.com/vim-denops/denops.vim>
 - ddu.vim <https://github.com/Shougo/ddu.vim>
-- Zig <https://ziglang.org> (master or latest)
+- Zig <https://ziglang.org>
 
-Latest versions are required unless explicitly mentioned.
+Latest stable versions are required unless explicitly mentioned.
 
 
 INSTALLATION                                      *ddu-filter-zf-installation*
