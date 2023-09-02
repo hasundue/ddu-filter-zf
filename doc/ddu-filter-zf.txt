@@ -13,18 +13,26 @@ REQUIREMENTS                                      *ddu-filter-zf-requirements*
 - Deno <https://deno.land/>
 - denops.vim <https://github.com/vim-denops/denops.vim>
 - ddu.vim <https://github.com/Shougo/ddu.vim>
-- Zig <https://ziglang.org>
+- Zig <https://ziglang.org> (optional, if you want to build `libzf` yourself)
 
 Latest stable versions are only supported unless explicitly mentioned.
 
 
 INSTALLATION                                      *ddu-filter-zf-installation*
 
-A build step is required to compile zf. In the case of dein
-<https://github.com/Shougo/dein.vim>, for example,
+A build step is required to compile `libzf`. In the case of dein
+<https://github.com/Shougo/dein.vim>, for example, you can specify the build
+command as follows:
 
 >viml
     call dein#add('hasundue/ddu-filter-zf', #{ build: 'deno task build' })
+<
+
+Alternatively, you can use the pre-built `libzf` provided in the release
+archives. In this case, you need to specify the download command as follows:
+
+>viml
+    call dein#add('hasundue/ddu-filter-zf', #{ build: 'deno task download' })
 <
 
 
