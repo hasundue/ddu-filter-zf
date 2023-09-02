@@ -28,11 +28,11 @@ jobs:
           options: --dry-run
 
       - name: Build assets
-        if: ${{ steps.check.outputs.semver && !steps.check.output.needs_update }}
+        if: ${{ steps.check.outputs.version && !steps.check.output.needs_update }}
         run: deno task build x86_64-linux x86_64-windows x86_64-macos
 
       - name: Release
-        if: ${{ steps.check.outputs.semver && !steps.check.output.needs_update }}
+        if: ${{ steps.check.outputs.version && !steps.check.output.needs_update }}
         uses: hasundue/denomantic-release@0.9.0
         with:
           denopendabot: app
