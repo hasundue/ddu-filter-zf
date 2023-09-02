@@ -83,9 +83,6 @@ If `true`, the filter will perform case-sensitive matching.
 - Type: `boolean`
 - Default: `false`
 
-If `true`, the filter will perform strict path matching. This means that the
-filter will not match a path if the input does not match the path exactly.
-
-Please refer to the
+If `true`, the filter will perform strict path matching. Please refer to the
 [original documentation](https://github.com/natecraddock/zf#strict-path-matching)
 for details.
