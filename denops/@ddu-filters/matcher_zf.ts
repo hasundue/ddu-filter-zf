@@ -24,7 +24,7 @@ export class Filter extends BaseFilter<Params> {
     if (!args.input) {
       return args.items;
     }
-    const tokens = args.input.split(" ");
+    const tokens = args.input.split(" ").filter((token) => token !== "");
     return args.items
       .map((item) => rankItem(item, tokens, args.filterParams))
       .filter((item) => item.rank > 0)
