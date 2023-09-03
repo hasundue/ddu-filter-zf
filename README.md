@@ -15,7 +15,7 @@
 
 ## Introduction
 
-`ddu-filter-zf` is a fuzzy-matcher for
+`ddu-filter-zf` is a fuzzy-filter for
 [ddu.vim](https://github.com/Shougo/ddu.vim), featuring
 [zf](https://github.com/natecraddock/zf), a fuzzy-finder designed for
 fuzzy-matching file paths.
@@ -40,29 +40,31 @@ call dein#add('hasundue/ddu-filter-zf', #{ build: 'deno task build' })
 ```
 
 Alternatively, you can use the pre-built `libzf` provided in the release
-archives. In this case, you need to specify the download command as follows:
+archives (available for Linux x86_64, Windows x86_64, and macOS x86_64). In this
+case, you need to specify the download command as follows:
 
 ```viml
-call dein#add('hasundue/ddu-filter-zf', #{ build: 'deno task download' })
+call dein#add('hasundue/ddu-filter-zf', #{ build: 'deno task fetch' })
 ```
 
 ## Configuration
 
-`ddu-filter-zf` is provided as a matcher for ddu.vim, technically, but it works
-as a sorter at the same time by its nature. Here is an example configuration
-where `ddu-filter-zf` is used as the filter for all the sources:
+`ddu-filter-zf` provides `matcher_zf`, `sorter_zf`, and `converter_zf`
+(highlighter) for `ddu.vim`. Here is an example configuration where
+`ddu-filter-zf` is used as the default filter for all the sources:
 
 ```viml
 call ddu#custom#patch_global(#{
   \   sourceOptions: #{
   \     _: #{
   \       matchers: ['matcher_zf'],
+  \       sorters: ['sorter_zf'],
+  \       converters: ['converter_zf'],
   \     },
   \   },
   \   filterParams: #{
-  \     matcher_zf: #{
-  \       plainText: v:false,
-  \       caseSensitive: v:false,
+  \     converter_zf: #{
+  \       highlight: 'Search',
   \     },
   \   },
   \ })
@@ -70,17 +72,23 @@ call ddu#custom#patch_global(#{
 
 ## Parameters
 
-### `plainText`
+### `converter_zf`
 
-- Type: `boolean`
-- Default: `false`
+#### `highlight`
 
-If `true`, the filter will treat items as plain text, not file paths. This
-disables the path-specific features of `zf`.
+- Type: `string` (highlight group name)
+- Default: `Search`
 
-### `caseSensitive`
+The highlight group used to highlight the matched characters.
 
-- Type: `boolean`
-- Default: `false`
+## Features
 
-If `true`, the filter will perform case-sensitive matching.
+Please refer to the
+[original documentation of `zf`](https://github.com/natecraddock/zf#why-use-zf)
+for the details of the `zf`-specific features.
+
+Here are some non-trivial features of `ddu-filter-zf`:
+
+- It enables the file-path-specific features only for items with
+  `kind = 'file'`. For other kind of items, it treats them as plain strings and
+  behaves like a conventional filter.
