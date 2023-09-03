@@ -53,7 +53,7 @@ function rankItem(
   let total = 0;
   for (const token of tokens) {
     const rank = rankToken(
-      item.word,
+      item.matcherKey ?? item.word,
       params.plainText ? null : basename(item.word),
       params.caseSensitive ? token : token.toLowerCase(),
       params.caseSensitive,
