@@ -9,7 +9,7 @@ import { highlightToken } from "../../libzf.ts";
 import { RankTokenParams } from "./matcher_zf.ts";
 
 const SEPARATOR = Deno.build.os === "windows" ? "\\" : "/";
-const HIGHLIGHT_NAME = "zf_matched";
+const HIGHLIGHT_NAME = "zf";
 
 interface Params extends BaseFilterParams {
   highlight: string;
@@ -38,7 +38,7 @@ export class Filter extends BaseFilter<Params> {
     }));
   }
   params() {
-    return { highlight: "" };
+    return { highlight: "Search" };
   }
 }
 
