@@ -1,9 +1,9 @@
-import { basename } from "https://deno.land/std@0.198.0/path/mod.ts";
+import { basename } from "https://deno.land/std@0.201.0/path/mod.ts";
 import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
-} from "https://deno.land/x/ddu_vim@v3.5.0/types.ts";
+} from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
 import { rankToken } from "../../libzf.ts";
 
 const separator = Deno.build.os === "windows" ? "\\" : "/";
