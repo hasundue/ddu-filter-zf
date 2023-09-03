@@ -35,6 +35,7 @@ if (!asset) {
   Deno.exit(1);
 }
 
+console.log(`Downloading ${asset.browser_download_url}...`);
 const data = await fetch(asset.browser_download_url).then((res) =>
   res.arrayBuffer()
 );
@@ -46,3 +47,5 @@ if (!existsSync(`${dir}/zf`)) {
 Deno.writeFileSync(`${dir}/zf/${filename}`, new Uint8Array(data), {
   mode: 0o755,
 });
+
+console.log(`Downloaded ${filename} successfully.`);
