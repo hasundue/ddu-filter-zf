@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.201.0/assert/mod.ts";
 import { describe, it } from "https://deno.land/std@0.201.0/testing/bdd.ts";
-import { rankToken } from "./libzf.ts";
+import { rankToken, highlightToken } from "./libzf.ts";
 
 describe("rankToken", () => {
   it("unmatched", () => {
@@ -22,5 +22,16 @@ describe("rankToken", () => {
   it("match with dirname and filename", () => {
     const res = rankToken("zf/libzf.so", "libzf.so", "zf", false, false);
     assertEquals(res, 1.5);
+  });
+});
+
+describe("highlightToken", () => {
+  it("unmatched", () => {
+    const res = highlightToken("libzf", null, "a", false, false);
+    assertEquals(res, []);
+  });
+  it("match with extname", () => {
+    const res = highlightToken("libzf", "null", "l", false, false);
+    assertEquals(res, []);
   });
 });

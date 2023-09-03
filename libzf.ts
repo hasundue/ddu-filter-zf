@@ -24,6 +24,10 @@ const lib = Deno.dlopen(
       parameters: ["buffer", "buffer", "buffer", "bool", "bool"],
       result: "f64",
     },
+    "highlightToken": {
+      parameters: ["buffer", "buffer", "buffer", "bool", "bool"],
+      result: "pointer",
+    },
   } as const,
 );
 
@@ -47,4 +51,27 @@ export function rankToken(
     caseSensitive,
     strictPath,
   );
+}
+
+export function highlightToken(
+  str: string,
+  filename: string | null,
+  token: string,
+  caseSensitive: boolean,
+  strictPath: boolean,
+): number[] {
+  const pointer = lib.symbols.highlightToken(
+    strToBuf(str),
+    filename ? strToBuf(filename) : null,
+    strToBuf(token),
+    caseSensitive,
+    strictPath,
+  );
+  console.debug(pointer);
+  if (!pointer) {
+    return [];
+  }
+  const view = new Deno.UnsafePointerView(pointer);
+  const int = view.getUint8(0);
+  return [int];
 }
