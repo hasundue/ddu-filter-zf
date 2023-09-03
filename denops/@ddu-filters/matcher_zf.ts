@@ -3,14 +3,16 @@ import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
+  ItemHighlight,
 } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
-import { rankToken } from "../../libzf.ts";
+import { isLike } from "https://deno.land/x/unknownutil@v2.1.1/mod.ts";
+import { highlightToken, rankToken } from "../../libzf.ts";
 
-const separator = Deno.build.os === "windows" ? "\\" : "/";
+const SEPARATOR = Deno.build.os === "windows" ? "\\" : "/";
+const HIGHLIGHT_NAME = "zf_matched";
 
 interface Params extends BaseFilterParams {
-  plainText: boolean;
-  caseSensitive: boolean;
+  highlightMatched: string;
 }
 
 export class Filter extends BaseFilter<Params> {
@@ -23,46 +25,91 @@ export class Filter extends BaseFilter<Params> {
       return args.items;
     }
     const tokens = args.input.trimEnd().split(" ");
-    const strictPath = tokens.length == 1 && args.input.includes(separator);
-    return args.items
+    const strictPath = tokens.length == 1 && args.input.includes(SEPARATOR);
+    const caseSensitive = /[A-Z]/.test(args.input);
+
+    const matched = args.items
       .map((item) =>
-        rankItem(item, tokens, { ...args.filterParams, strictPath })
+        rankItem(item, tokens, {
+          strictPath,
+          caseSensitive,
+          plainText: item.kind !== "file",
+        })
       )
-      .filter((result) => result.rank > 0)
-      .sort((a, b) => a.rank - b.rank)
-      .map((result) => result.item);
+      .filter((item) => isLike({ rank: 0 }, item.data) && item.data.rank >= 0);
+
+    if (args.filterParams.highlightMatched) {
+      return matched.map((item) => ({
+        ...item,
+        highlights: highlightItem(item, tokens, {
+          strictPath,
+          caseSensitive,
+          plainText: item.kind !== "file",
+          highlightMatched: args.filterParams.highlightMatched,
+        }),
+      }));
+    }
+    return matched;
   }
   params() {
     return {
-      plainText: false,
-      caseSensitive: false,
+      highlightMatched: "",
     };
   }
 }
 
-type RankItemResult = {
-  item: DduItem;
-  rank: number;
-};
+interface RankTokenParams {
+  plainText: boolean;
+  caseSensitive: boolean;
+  strictPath: boolean;
+}
 
 function rankItem(
   item: DduItem,
   tokens: string[],
-  params: Params & { strictPath: boolean },
-): RankItemResult {
+  params: RankTokenParams,
+): DduItem {
   let total = 0;
   for (const token of tokens) {
+    const candidate = item.matcherKey ?? item.word;
     const rank = rankToken(
-      item.matcherKey ?? item.word,
-      params.plainText ? null : basename(item.word),
-      params.caseSensitive ? token : token.toLowerCase(),
+      candidate,
+      params.plainText ? null : basename(candidate),
+      token,
       params.caseSensitive,
       params.strictPath,
     );
     if (rank < 0) {
-      return { item, rank };
+      return { ...item, data: { rank } };
     }
     total += rank;
   }
-  return { item, rank: total };
+  return { ...item, data: { rank: total } };
+}
+
+function highlightItem(
+  item: DduItem,
+  tokens: string[],
+  params: RankTokenParams & { highlightMatched: string },
+): ItemHighlight[] {
+  const highlights: ItemHighlight[] = [];
+  for (const token of tokens) {
+    const str = item.matcherKey ?? item.word;
+    const indices = highlightToken(
+      str,
+      params.plainText ? null : basename(str),
+      token,
+      params.caseSensitive,
+      params.strictPath,
+    );
+    indices.forEach((i) => {
+      highlights.push({
+        name: HIGHLIGHT_NAME,
+        hl_group: params.highlightMatched,
+        col: i + 1,
+        width: 1,
+      });
+    });
+  }
+  return highlights;
 }
