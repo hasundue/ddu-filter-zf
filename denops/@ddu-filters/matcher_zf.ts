@@ -3,32 +3,25 @@ import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
-  ItemHighlight,
 } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
 import { isLike } from "https://deno.land/x/unknownutil@v2.1.1/mod.ts";
-import { highlightToken, rankToken } from "../../libzf.ts";
+import { rankToken } from "../../libzf.ts";
 
 const SEPARATOR = Deno.build.os === "windows" ? "\\" : "/";
-const HIGHLIGHT_NAME = "zf_matched";
 
-interface Params extends BaseFilterParams {
-  highlightMatched: string;
-}
-
-export class Filter extends BaseFilter<Params> {
+export class Filter extends BaseFilter<BaseFilterParams> {
   filter(args: {
-    filterParams: Params;
+    filterParams: BaseFilterParams;
     input: string;
     items: DduItem[];
   }): DduItem[] {
-    if (!args.input) {
-      return args.items;
-    }
+    if (!args.input) return args.items;
+
     const tokens = args.input.trimEnd().split(" ");
     const strictPath = tokens.length == 1 && args.input.includes(SEPARATOR);
     const caseSensitive = /[A-Z]/.test(args.input);
 
-    const matched = args.items
+    return args.items
       .map((item) =>
         rankItem(item, tokens, {
           strictPath,
@@ -37,28 +30,13 @@ export class Filter extends BaseFilter<Params> {
         })
       )
       .filter((item) => isLike({ rank: 0 }, item.data) && item.data.rank >= 0);
-
-    if (args.filterParams.highlightMatched) {
-      return matched.map((item) => ({
-        ...item,
-        highlights: highlightItem(item, tokens, {
-          strictPath,
-          caseSensitive,
-          plainText: item.kind !== "file",
-          highlightMatched: args.filterParams.highlightMatched,
-        }),
-      }));
-    }
-    return matched;
   }
   params() {
-    return {
-      highlightMatched: "",
-    };
+    return { highlightMatched: "" };
   }
 }
 
-interface RankTokenParams {
+export interface RankTokenParams {
   plainText: boolean;
   caseSensitive: boolean;
   strictPath: boolean;
@@ -85,31 +63,4 @@ function rankItem(
     total += rank;
   }
   return { ...item, data: { rank: total } };
-}
-
-function highlightItem(
-  item: DduItem,
-  tokens: string[],
-  params: RankTokenParams & { highlightMatched: string },
-): ItemHighlight[] {
-  const highlights: ItemHighlight[] = [];
-  for (const token of tokens) {
-    const str = item.matcherKey ?? item.word;
-    const indices = highlightToken(
-      str,
-      params.plainText ? null : basename(str),
-      token,
-      params.caseSensitive,
-      params.strictPath,
-    );
-    indices.forEach((i) => {
-      highlights.push({
-        name: HIGHLIGHT_NAME,
-        hl_group: params.highlightMatched,
-        col: i + 1,
-        width: 1,
-      });
-    });
-  }
-  return highlights;
 }
