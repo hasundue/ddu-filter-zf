@@ -28,9 +28,9 @@ export class Filter extends BaseFilter<Params> {
       .map((item) =>
         rankItem(item, tokens, { ...args.filterParams, strictPath })
       )
-      .filter((item) => item.rank > 0)
+      .filter((result) => result.rank > 0)
       .sort((a, b) => a.rank - b.rank)
-      .map((item) => item.item);
+      .map((result) => result.item);
   }
   params() {
     return {
