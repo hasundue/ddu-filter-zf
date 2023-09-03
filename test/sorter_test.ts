@@ -18,8 +18,8 @@ describe("sorter", () => {
       assertObjectMatch(
         sorter.filter({ items, filterParams }),
         [
-          { word: "zf/libzf.so", data: { zfRank: 1 } },
           { word: "zf/", data: { zfRank: 0 } },
+          { word: "zf/libzf.so", data: { zfRank: 1 } },
           // deno-lint-ignore no-explicit-any
         ] as any,
       );

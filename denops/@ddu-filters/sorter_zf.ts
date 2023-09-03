@@ -13,7 +13,7 @@ export class Filter extends BaseFilter<BaseFilterParams> {
     return args.items.sort((a, b) => {
       const ra = isLike({ zfRank: 0 }, a.data) ? a.data.zfRank : 0;
       const rb = isLike({ zfRank: 0 }, b.data) ? b.data.zfRank : 0;
-      return rb - ra;
+      return ra - rb;
     });
   }
   params() {
