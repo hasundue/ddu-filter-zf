@@ -15,35 +15,33 @@ describe("matcher_zf", () => {
       // deno-lint-ignore no-explicit-any
     ] as any;
 
+    const filterParams = { highlightMatched: "" };
+
     it("should match for a single word", () => {
       assertObjectMatch(
-        matcher.filter({
-          filterParams: { plainText: false, caseSensitive: false },
-          input: "zf",
-          items,
-        }),
+        matcher.filter({ filterParams, input: "zf", items }),
         items,
+      );
+    });
+
+    it("should be case sensitive when input contains uppercase", () => {
+      assertObjectMatch(
+        matcher.filter({ filterParams, input: "ZF", items }),
+        // deno-lint-ignore no-explicit-any
+        [] as any,
       );
     });
 
     it("should ignore a trailing whitespace", () => {
       assertObjectMatch(
-        matcher.filter({
-          filterParams: { plainText: false, caseSensitive: false },
-          input: "zf ",
-          items,
-        }),
+        matcher.filter({ filterParams, input: "zf ", items }),
         items,
       );
     });
 
     it("should match for multiple words", () => {
       assertObjectMatch(
-        matcher.filter({
-          filterParams: { plainText: false, caseSensitive: false },
-          input: "so zf",
-          items,
-        }),
+        matcher.filter({ filterParams, input: "so zf", items }),
         // deno-lint-ignore no-explicit-any
         [{ word: "zf/libzf.so" }] as any,
       );
@@ -51,11 +49,7 @@ describe("matcher_zf", () => {
 
     it("should match for words with a separator", () => {
       assertObjectMatch(
-        matcher.filter({
-          filterParams: { plainText: false, caseSensitive: false },
-          input: "f/f",
-          items,
-        }),
+        matcher.filter({ filterParams, input: "f/f", items }),
         // deno-lint-ignore no-explicit-any
         [{ word: "zf/libzf.so" }] as any,
       );
@@ -69,11 +63,7 @@ describe("matcher_zf", () => {
       ] as any;
 
       assertObjectMatch(
-        matcher.filter({
-          filterParams: { plainText: false, caseSensitive: false },
-          input: "dir",
-          items,
-        }),
+        matcher.filter({ filterParams, input: "dir", items }),
         // deno-lint-ignore no-explicit-any
         [{ word: "zf/" }] as any,
       );
@@ -83,8 +73,7 @@ describe("matcher_zf", () => {
   describe("params", () => {
     it("should return default params", () => {
       assertEquals(matcher.params(), {
-        plainText: false,
-        caseSensitive: false,
+        highlightMatched: "",
       });
     });
   });
