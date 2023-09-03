@@ -4,23 +4,18 @@ import {
   join,
 } from "https://deno.land/std@0.201.0/path/mod.ts";
 
-const dir = dirname(fromFileUrl(import.meta.url));
-
-let name = "";
-
-switch (Deno.build.os) {
-  case "windows":
-    name = "zf.dll";
-    break;
-  case "darwin":
-    name = "libzf.dylib";
-    break;
-  default:
-    name = "libzf.so";
-    break;
+function filename(): string {
+  switch (Deno.build.os) {
+    case "windows":
+      return "zf.dll";
+    case "darwin":
+      return "libzf.dylib";
+    default:
+      return "libzf.so";
+  }
 }
 
-const path = join(dir, "zf", name);
+const path = join(dirname(fromFileUrl(import.meta.url)), "zf", filename());
 
 const lib = Deno.dlopen(
   path,
