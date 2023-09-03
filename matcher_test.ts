@@ -60,6 +60,24 @@ describe("matcher_zf", () => {
         [{ word: "zf/libzf.so" }] as any,
       );
     });
+
+    it("should match for matcherKey", () => {
+      const items = [
+        { word: "zf/", matcherKey: "dir" },
+        { word: "zf/libzf.so", matcherKey: "file" },
+        // deno-lint-ignore no-explicit-any
+      ] as any;
+
+      assertObjectMatch(
+        matcher.filter({
+          filterParams: { plainText: false, caseSensitive: false },
+          input: "dir",
+          items,
+        }),
+        // deno-lint-ignore no-explicit-any
+        [{ word: "zf/" }] as any,
+      );
+    });
   });
 
   describe("params", () => {
