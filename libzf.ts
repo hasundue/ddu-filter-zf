@@ -17,16 +17,31 @@ function filename(): string {
 
 const path = join(dirname(fromFileUrl(import.meta.url)), "zf", filename());
 
-const lib = Deno.dlopen(
+// ref: zig/src/clib.zig
+const { symbols: libzf } = Deno.dlopen(
   path,
   {
     "rankToken": {
-      parameters: ["buffer", "buffer", "buffer", "bool", "bool"],
+      parameters: [
+        "buffer", // str
+        "buffer", // filename
+        "buffer", // token
+        "bool", // case_sensitive
+        "bool", // strict_path
+      ],
       result: "f64",
     },
     "highlightToken": {
-      parameters: ["buffer", "buffer", "buffer", "bool", "bool"],
-      result: "pointer",
+      parameters: [
+        "buffer", // str
+        "buffer", // filename
+        "buffer", // token
+        "bool", // case_sensitive
+        "bool", // strict_path
+        "buffer", // matches
+        "usize", // matches_len
+      ],
+      result: "usize",
     },
   } as const,
 );
@@ -44,7 +59,7 @@ export function rankToken(
   caseSensitive: boolean,
   strictPath: boolean,
 ): number {
-  return lib.symbols.rankToken(
+  return libzf.rankToken(
     strToBuf(str),
     filename ? strToBuf(filename) : null,
     strToBuf(token),
@@ -60,18 +75,16 @@ export function highlightToken(
   caseSensitive: boolean,
   strictPath: boolean,
 ): number[] {
-  const pointer = lib.symbols.highlightToken(
+  const matched_buf = new BigInt64Array(token.length);
+  const matched_len = libzf.highlightToken(
     strToBuf(str),
     filename ? strToBuf(filename) : null,
     strToBuf(token),
     caseSensitive,
     strictPath,
+    matched_buf,
+    matched_buf.length,
   );
-  console.debug(pointer);
-  if (!pointer) {
-    return [];
-  }
-  const view = new Deno.UnsafePointerView(pointer);
-  const int = view.getUint8(0);
-  return [int];
+  const matched = matched_buf.slice(0, Number(matched_len));
+  return Array.from(matched).map((i) => Number(i));
 }
