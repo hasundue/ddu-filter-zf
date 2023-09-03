@@ -29,7 +29,7 @@ export class Filter extends BaseFilter<BaseFilterParams> {
           plainText: item.kind !== "file",
         })
       )
-      .filter((item) => isLike({ rank: 0 }, item.data) && item.data.rank >= 0);
+      .filter((item) => isLike({ zfRank: 0 }, item.data) && item.data.zfRank >= 0);
   }
   params() {
     return { highlightMatched: "" };
@@ -58,9 +58,9 @@ function rankItem(
       params.strictPath,
     );
     if (rank < 0) {
-      return { ...item, data: { rank } };
+      return { ...item, data: { zfRank: rank } };
     }
     total += rank;
   }
-  return { ...item, data: { rank: total } };
+  return { ...item, data: { zfRank: total } };
 }
