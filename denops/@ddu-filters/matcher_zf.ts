@@ -29,7 +29,9 @@ export class Filter extends BaseFilter<BaseFilterParams> {
           plainText: item.kind !== "file",
         })
       )
-      .filter((item) => isLike({ zfRank: 0 }, item.data) && item.data.zfRank >= 0);
+      .filter((item) =>
+        isLike({ zfRank: 0 }, item.data) && item.data.zfRank >= 0
+      );
   }
   params() {
     return { highlightMatched: "" };
