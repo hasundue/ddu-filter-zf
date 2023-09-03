@@ -3,7 +3,7 @@ import {
   assertObjectMatch,
 } from "https://deno.land/std@0.201.0/assert/mod.ts";
 import { describe, it } from "https://deno.land/std@0.201.0/testing/bdd.ts";
-import { Filter } from "./denops/@ddu-filters/matcher_zf.ts";
+import { Filter } from "../denops/@ddu-filters/matcher_zf.ts";
 
 describe("matcher_zf", () => {
   const matcher = new Filter();
