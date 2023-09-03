@@ -1,7 +1,7 @@
 import {
   dirname,
   fromFileUrl,
-} from "https://deno.land/std@0.198.0/path/mod.ts";
+} from "https://deno.land/std@0.201.0/path/mod.ts";
 import { existsSync } from "https://deno.land/std@0.201.0/fs/mod.ts";
 import { Octokit } from "npm:@octokit/rest@20.0.1";
 
