@@ -4,7 +4,7 @@ import {
   BaseFilterParams,
   DduItem,
 } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
-import { isLike } from "https://deno.land/x/unknownutil@v3.6.0/mod.ts";
+import { is } from "https://deno.land/x/unknownutil@v3.6.0/mod.ts";
 import { rankToken } from "../../libzf.ts";
 
 const SEPARATOR = Deno.build.os === "windows" ? "\\" : "/";
@@ -30,7 +30,7 @@ export class Filter extends BaseFilter<BaseFilterParams> {
         })
       )
       .filter((item) =>
-        isLike({ zfRank: 0 }, item.data) && item.data.zfRank >= 0
+        is.ObjectOf({ zfRank: is.Number })(item.data) && item.data.zfRank >= 0
       );
   }
   params() {
