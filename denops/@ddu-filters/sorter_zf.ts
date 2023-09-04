@@ -3,7 +3,7 @@ import {
   BaseFilterParams,
   DduItem,
 } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
-import { isLike } from "https://deno.land/x/unknownutil@v2.1.1/mod.ts";
+import { isLike } from "https://deno.land/x/unknownutil@v3.6.0/mod.ts";
 
 export class Filter extends BaseFilter<BaseFilterParams> {
   filter(args: {
