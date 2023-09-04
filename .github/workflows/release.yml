@@ -22,7 +22,7 @@ jobs:
 
       - name: Check if release is needed
         id: check
-        uses: hasundue/denomantic-release@0.10.0
+        uses: hasundue/denomantic-release@0.10.3
         with:
           denopendabot: disabled
           options: --dry-run
