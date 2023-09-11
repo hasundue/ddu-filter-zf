@@ -16,7 +16,7 @@ jobs:
           deno-version: v1.36.4 # @denopendabot denoland/deno
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Format
         run: deno fmt --check
