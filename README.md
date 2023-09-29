@@ -6,7 +6,7 @@
 
 ![CI](https://github.com/hasundue/ddu-filter-zf/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/hasundue/ddu-filter-zf/branch/main/graph/badge.svg?token=7BS432RAXB)](https://codecov.io/gh/hasundue/ddu-filter-zf)
-![denoland/deno](https://img.shields.io/badge/Deno-v1.37.0-informational?logo=deno) <!-- @denopendabot denoland/deno -->
+![denoland/deno](https://img.shields.io/badge/Deno-v1.37.1-informational?logo=deno) <!-- @denopendabot denoland/deno -->
 ![ziglang/zig](https://img.shields.io/badge/Zig-0.11.0-informational?logo=zig) <!-- @denopendabot ziglang/zig -->
 
 <!-- deno-fmt-ignore-end -->
