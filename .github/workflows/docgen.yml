@@ -16,7 +16,7 @@ jobs:
           vimdoc: ddu-filter-zf
           version: "Vim/Neovim"
           toc: false
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "auto generate docs"
           branch: ${{ github.head_ref }}
