@@ -1,8 +1,8 @@
 import {
   dirname,
   fromFileUrl,
-} from "https://deno.land/std@0.204.0/path/mod.ts";
-import { existsSync } from "https://deno.land/std@0.204.0/fs/mod.ts";
+} from "https://deno.land/std@0.205.0/path/mod.ts";
+import { existsSync } from "https://deno.land/std@0.205.0/fs/mod.ts";
 import { Octokit } from "npm:@octokit/rest@20.0.2";
 
 const dir = dirname(fromFileUrl(import.meta.url));
