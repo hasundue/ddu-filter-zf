@@ -1,8 +1,8 @@
 import {
   assertEquals,
   assertObjectMatch,
-} from "https://deno.land/std@0.205.0/assert/mod.ts";
-import { describe, it } from "https://deno.land/std@0.205.0/testing/bdd.ts";
+} from "https://deno.land/std@0.208.0/assert/mod.ts";
+import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts";
 import { Filter } from "../denops/@ddu-filters/matcher_zf.ts";
 
 describe("matcher_zf", () => {
