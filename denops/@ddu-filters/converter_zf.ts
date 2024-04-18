@@ -1,10 +1,10 @@
-import { basename } from "https://deno.land/std@0.211.0/path/mod.ts";
+import { basename } from "https://deno.land/std@0.223.0/path/mod.ts";
 import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
   ItemHighlight,
-} from "https://deno.land/x/ddu_vim@v3.9.0/types.ts";
+} from "https://deno.land/x/ddu_vim@v4.0.0/types.ts";
 import { highlightToken } from "../../libzf.ts";
 import { RankTokenParams } from "./matcher_zf.ts";
 

@@ -1,5 +1,5 @@
-import { assertEquals } from "https://deno.land/std@0.211.0/assert/mod.ts";
-import { describe, it } from "https://deno.land/std@0.211.0/testing/bdd.ts";
+import { assertEquals } from "https://deno.land/std@0.223.0/assert/mod.ts";
+import { describe, it } from "https://deno.land/std@0.223.0/testing/bdd.ts";
 import { highlightToken, rankToken } from "../libzf.ts";
 
 describe("rankToken", () => {

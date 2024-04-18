@@ -2,8 +2,8 @@ import {
   BaseFilter,
   BaseFilterParams,
   DduItem,
-} from "https://deno.land/x/ddu_vim@v3.9.0/types.ts";
-import { is } from "https://deno.land/x/unknownutil@v3.13.0/mod.ts";
+} from "https://deno.land/x/ddu_vim@v4.0.0/types.ts";
+import { is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
 
 const type = { zfRank: is.Number };
 
