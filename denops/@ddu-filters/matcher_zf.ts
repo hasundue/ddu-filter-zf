@@ -4,7 +4,7 @@ import {
   BaseFilterParams,
   DduItem,
 } from "https://deno.land/x/ddu_vim@v4.0.0/types.ts";
-import { is } from "https://deno.land/x/unknownutil@v3.13.0/mod.ts";
+import { is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
 import { rankToken } from "../../libzf.ts";
 
 const SEPARATOR = Deno.build.os === "windows" ? "\\" : "/";
