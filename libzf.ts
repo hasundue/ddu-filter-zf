@@ -2,7 +2,7 @@ import {
   dirname,
   fromFileUrl,
   join,
-} from "https://deno.land/std@0.211.0/path/mod.ts";
+} from "https://deno.land/std@0.223.0/path/mod.ts";
 
 function filename(): string {
   switch (Deno.build.os) {

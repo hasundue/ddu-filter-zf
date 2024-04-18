@@ -1,5 +1,5 @@
-import { assertObjectMatch } from "https://deno.land/std@0.211.0/assert/mod.ts";
-import { describe, it } from "https://deno.land/std@0.211.0/testing/bdd.ts";
+import { assertObjectMatch } from "https://deno.land/std@0.223.0/assert/mod.ts";
+import { describe, it } from "https://deno.land/std@0.223.0/testing/bdd.ts";
 import { Filter } from "../denops/@ddu-filters/sorter_zf.ts";
 
 describe("sorter", () => {
