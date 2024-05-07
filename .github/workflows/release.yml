@@ -32,7 +32,7 @@ jobs:
         if: ${{ steps.check.outputs.version && !steps.check.output.needs_update }}
         uses: goto-bus-stop/setup-zig@v2
         with:
-          version: 0.11.0 # @denopendabot ziglang/zig
+          version: 0.12.0 # @denopendabot ziglang/zig
 
       - name: Build assets
         id: build
