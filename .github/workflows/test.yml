@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        zig_ver: [ 0.11.0 ] # @denopendabot ziglang/zig
+        zig_ver: [ 0.12.0 ] # @denopendabot ziglang/zig
 
     runs-on: ${{ matrix.os }}
 
@@ -30,7 +30,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.42.4 # @denopendabot denoland/deno
+          deno-version: v1.43.1 # @denopendabot denoland/deno
 
       - name: Checkout
         uses: actions/checkout@v4
