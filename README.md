@@ -11,6 +11,11 @@
 
 <!-- deno-fmt-ignore-end -->
 
+> [!IMPORTANT]\
+> The maintainance of this plugin is suspended indefinitely, since the author no
+> longer uses ddu.vim. If you are interested in taking over the project, please
+> let the author know.
+
 <!-- panvimdoc-ignore-end -->
 
 ## Introduction
