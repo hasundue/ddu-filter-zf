@@ -28,7 +28,7 @@ jobs:
           version: ${{ matrix.zig_ver }}
 
       - name: Setup Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
           deno-version: v1.42.4 # @denopendabot denoland/deno
 
